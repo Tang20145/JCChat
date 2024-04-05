@@ -1,0 +1,3 @@
+/root/projects/JCChat_server/build/CMakeFiles/rebuild_cache.dir
+/root/projects/JCChat_server/build/CMakeFiles/edit_cache.dir
+/root/projects/JCChat_server/build/CMakeFiles/JCChat_Server.dir
