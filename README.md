@@ -3,7 +3,7 @@
 
 **(此分支没有代码！项目代码在别的分支！)**
 
-centos端和windows端的文件分为两个分支centos和windows，其他分支为学习、配置使用的库管理分支
+centos端和windows端的文件分为两个分支**centos**和**windows**，其他分支为学习、配置使用的库管理分支
 
 **day01 24/04/05**
 
