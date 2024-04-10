@@ -1,2 +1,4 @@
 # Json库的配置
 学习并完成了nlohmann/json第三方库的配置
+
+步骤大概是下载下来github上的nlohmann/json库zip于服务器，解压后进行cmake、make之后make install安装，就可以在CMakeLists里直接find_package了
