@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories("./thirdparty/single_include/nlohmann")
 
+#添加多线程库
+set(CMAKE_CXX_FLAGS -pthread)
+
 #编译项目
 aux_source_directory(./src SRC_LIST)
 
