@@ -8,6 +8,9 @@ Login::Login(QWidget *parent)
     ui->setupUi(this);
     sock = new QTcpSocket;
 
+    //默认地址端口
+    ui->ipLineEdit->setText("119.91.150.41");
+    ui->portLineEdit->setText("8000");
     connect(sock,&QTcpSocket::connected,this,&Login::connect_handle);
     connect(sock,&QTcpSocket::disconnected,this,&Login::disconnect_msg_box);
 
@@ -35,6 +38,7 @@ void Login::disconnect_msg_box()
 
 void Login::on_connectPushButton_clicked()
 {
+    sock->abort();
     QString ip_str = ui->ipLineEdit->text();
     QString port_str = ui->portLineEdit->text();
     user_name = ui->usernameLineEdit->text();
