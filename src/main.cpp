@@ -69,7 +69,7 @@ int main()
 		clnt_sock = accept(serv_sock,(struct sockaddr*)&clnt_adr,&clnt_adr_size);
 		if(clnt_sock == -1)
 			error_handling("accept error!\n");
-		printf("accept clnt:%s\n",inet_ntoa(clnt_adr.sin_addr));
+		printf("accept clnt ip: %s , socket: %d\n",inet_ntoa(clnt_adr.sin_addr),clnt_sock);
 		
 		//互斥锁
 		pthread_mutex_lock(&mutx);
@@ -84,6 +84,7 @@ int main()
 		pthread_mutex_unlock(&mutx);
 	}	
 	
+	printf("Server offline\n");
 
 	pthread_mutex_destroy(&mutx);	
 }
@@ -93,17 +94,53 @@ void* connect_handle(void* arg)
 	int sock = *((int*)arg);
 	char recv_buf[BUF_SIZE];	
 	memset(recv_buf,0,BUF_SIZE);
-	int recv_len;
-	while((recv_len = read(sock,recv_buf,BUF_SIZE))>0)
+	
+	while(1)
 	{
 		
-		printf("recv %d bytes\n",recv_len);
+		int recv_res = recv(sock,recv_buf,sizeof(int),0);
+
+		if(recv_res <=0)
+		{
+			if(errno == EAGAIN || errno == EWOULDBLOCK);
+			else 
+			{
+				break;
+			}
+		}
+
+		int recv_msg_len;//json消息的长度
+		memcpy(&recv_msg_len,recv_buf,sizeof(int));
+
+		recv(sock , recv_buf + sizeof(int), recv_msg_len ,0);
+	
+		printf("recv %d bytes\n",recv_msg_len+sizeof(int));
 		printf("recv buf : %s\n",recv_buf);
 		printf("start broadcasting......\n");
-		broadcast_msg(recv_buf,recv_len);		
-		memset(recv_buf,0,recv_len);
+		broadcast_msg(recv_buf,recv_msg_len+sizeof(int));
+		memset(recv_buf+(recv_msg_len+sizeof(int)),0,1);
 	}
-	
+
+	printf("recv error or socket disconnected!\n");
+
+	//清理sock
+	pthread_mutex_lock(&mutx);
+
+	int i;
+	for(i = 0 ; i < clnt_cnt ; i++)
+	{
+		if(clnt_socks[i] == sock)
+		{
+			printf("delete socket : %d\n", sock);
+		}
+	}
+	clnt_cnt--;
+	for(;i < clnt_cnt ; i++)
+	{
+		clnt_socks[i] = clnt_socks[i+1];
+	}
+	printf("sockets reset finished!\n");
+	pthread_mutex_unlock(&mutx);
 }
 
 void broadcast_msg(const char msg[],int msg_len)
