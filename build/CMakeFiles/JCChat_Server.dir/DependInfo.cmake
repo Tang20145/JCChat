@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/root/projects/JCChat_server/src/main.cpp" "/root/projects/JCChat_server/build/CMakeFiles/JCChat_Server.dir/src/main.cpp.o"
+  "/root/projects/JCChat_server/src/JCChat_Server_v01.cpp" "/root/projects/JCChat_server/build/CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

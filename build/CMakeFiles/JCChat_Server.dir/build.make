@@ -57,27 +57,27 @@ include CMakeFiles/JCChat_Server.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/JCChat_Server.dir/flags.make
 
-CMakeFiles/JCChat_Server.dir/src/main.cpp.o: CMakeFiles/JCChat_Server.dir/flags.make
-CMakeFiles/JCChat_Server.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/projects/JCChat_server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/JCChat_Server.dir/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JCChat_Server.dir/src/main.cpp.o -c /root/projects/JCChat_server/src/main.cpp
+CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o: CMakeFiles/JCChat_Server.dir/flags.make
+CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o: ../src/JCChat_Server_v01.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/projects/JCChat_server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o -c /root/projects/JCChat_server/src/JCChat_Server_v01.cpp
 
-CMakeFiles/JCChat_Server.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JCChat_Server.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/projects/JCChat_server/src/main.cpp > CMakeFiles/JCChat_Server.dir/src/main.cpp.i
+CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/projects/JCChat_server/src/JCChat_Server_v01.cpp > CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.i
 
-CMakeFiles/JCChat_Server.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JCChat_Server.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/projects/JCChat_server/src/main.cpp -o CMakeFiles/JCChat_Server.dir/src/main.cpp.s
+CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/projects/JCChat_server/src/JCChat_Server_v01.cpp -o CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.s
 
 # Object files for target JCChat_Server
 JCChat_Server_OBJECTS = \
-"CMakeFiles/JCChat_Server.dir/src/main.cpp.o"
+"CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o"
 
 # External object files for target JCChat_Server
 JCChat_Server_EXTERNAL_OBJECTS =
 
-JCChat_Server: CMakeFiles/JCChat_Server.dir/src/main.cpp.o
+JCChat_Server: CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o
 JCChat_Server: CMakeFiles/JCChat_Server.dir/build.make
 JCChat_Server: CMakeFiles/JCChat_Server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/projects/JCChat_server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable JCChat_Server"

@@ -6,17 +6,17 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories("./thirdparty/single_include/nlohmann")
 
-#æ·»åŠ å¤šçº¿ç¨‹åº“
+#Ìí¼Ó¶àÏß³Ì¿â
 set(CMAKE_CXX_FLAGS -pthread)
 
-#ç¼–è¯‘é¡¹ç›®
+#±àÒëÏîÄ¿
 aux_source_directory(./src SRC_LIST)
 
 file(GLOB_RECURSE HEADERS *.hpp *.h *.ini)
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SRC_LIST})
 
-#ä½¿ç”¨jsonåº“
+#Ê¹ÓÃjson¿â
 
 find_package(nlohmann_json 3.2.0 REQUIRED )
 

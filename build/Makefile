@@ -123,32 +123,32 @@ JCChat_Server/fast:
 	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/build
 .PHONY : JCChat_Server/fast
 
-src/main.o: src/main.cpp.o
+src/JCChat_Server_v01.o: src/JCChat_Server_v01.cpp.o
 
-.PHONY : src/main.o
+.PHONY : src/JCChat_Server_v01.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/JCChat_Server_v01.cpp.o:
+	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o
+.PHONY : src/JCChat_Server_v01.cpp.o
 
-src/main.i: src/main.cpp.i
+src/JCChat_Server_v01.i: src/JCChat_Server_v01.cpp.i
 
-.PHONY : src/main.i
+.PHONY : src/JCChat_Server_v01.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/JCChat_Server_v01.cpp.i:
+	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.i
+.PHONY : src/JCChat_Server_v01.cpp.i
 
-src/main.s: src/main.cpp.s
+src/JCChat_Server_v01.s: src/JCChat_Server_v01.cpp.s
 
-.PHONY : src/main.s
+.PHONY : src/JCChat_Server_v01.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/JCChat_Server_v01.cpp.s:
+	$(MAKE) -f CMakeFiles/JCChat_Server.dir/build.make CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.s
+.PHONY : src/JCChat_Server_v01.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... JCChat_Server"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/JCChat_Server_v01.o"
+	@echo "... src/JCChat_Server_v01.i"
+	@echo "... src/JCChat_Server_v01.s"
 .PHONY : help
 
 

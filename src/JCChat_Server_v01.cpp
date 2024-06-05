@@ -1,22 +1,26 @@
 #include <iostream>
-#include <string>
+#include <cstdio>
+#include <string.h>
 #include <cstring>
-#include "json.hpp"
+#include <cstdlib>
+//#include "json.hpp"
 #include <unistd.h>
 
-//å¤šçº¿ç¨‹ç›¸å…³
+//¶àÏß³ÌÏà¹Ø
 #include <pthread.h>
 
-//ç½‘ç»œç›¸å…³
+//ÍøÂçÏà¹Ø
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+
+#include <errno.h>
 using namespace std;
 
 const int BUF_SIZE = 1024;
 const int MAX_CONNECT = 300;
-int clnt_cnt;//å½“å‰è¿æ¥çš„å®¢æˆ·ç«¯socket
-int clnt_socks[MAX_CONNECT];//æ•°ç»„å­˜å‚¨æ‰€æœ‰å·²è¿æ¥çš„socket
+int clnt_cnt;//µ±Ç°Á¬½ÓµÄ¿Í»§¶Ësocket
+int clnt_socks[MAX_CONNECT];//Êı×é´æ´¢ËùÓĞÒÑÁ¬½ÓµÄsocket
 
 char msg_buf[BUF_SIZE];
 char json_buf[BUF_SIZE*2];
@@ -24,16 +28,16 @@ char json_buf[BUF_SIZE*2];
 void error_handling(const char* msg);
 
 pthread_mutex_t mutx;
-void* connect_handle(void* arg);//ç”¨äºåˆ›å»ºå¤„ç†è¿æ¥çš„çº¿ç¨‹
-void broadcast_msg(const char msg[],int msg_len);//å¹¿æ’­æ¶ˆæ¯å‡½æ•°
+void* connect_handle(void* arg);//ÓÃÓÚ´´½¨´¦ÀíÁ¬½ÓµÄÏß³Ì
+void broadcast_msg(const char msg[],int msg_len);//¹ã²¥ÏûÏ¢º¯Êı
 
 
 int main()
 {
-//äº’æ–¥é”åˆå§‹åŒ–
+//»¥³âËø³õÊ¼»¯
 	pthread_mutex_init(&mutx,NULL);
 
-//tcpåŸºç¡€è®¾ç½®
+//tcp»ù´¡ÉèÖÃ
 	int clnt_sock;
 	struct sockaddr_in clnt_adr;
 	socklen_t clnt_adr_size = sizeof(clnt_adr);	
@@ -43,7 +47,6 @@ int main()
 	if(serv_sock == -1)
 		error_handling("socket error");	
 	printf("socket success!\n");	
-	
 	
 	struct sockaddr_in serv_adr;
 	memset(&serv_adr,0,sizeof(serv_adr));
@@ -57,28 +60,34 @@ int main()
 	if(bind(serv_sock,(struct sockaddr*)&serv_adr,sizeof(serv_adr)) == -1)
 		error_handling("bind error");
 	printf("bind success!\n");
-	
 
 	if(listen(serv_sock,5)==-1)
 		error_handling("listen error");
 	printf("start listening!\n");
-//å¾ªç¯æ¥æ”¶è¿æ¥	
+
+//Ñ­»·½ÓÊÕÁ¬½Ó
 	while(1)
 	{	
 		
 		clnt_sock = accept(serv_sock,(struct sockaddr*)&clnt_adr,&clnt_adr_size);
 		if(clnt_sock == -1)
-			error_handling("accept error!\n");
+		{
+			printf("accept error!\n");
+			continue;
+		}
 		printf("accept clnt ip: %s , socket: %d\n",inet_ntoa(clnt_adr.sin_addr),clnt_sock);
 		
-		//äº’æ–¥é”
+		//»¥³âËø
 		pthread_mutex_lock(&mutx);
 			
 		pthread_t thread_id;
 		if(pthread_create(&thread_id,NULL,connect_handle,(void*)&clnt_sock) == 0)	
 			printf("create connect handle thread success! Thread id : %lu\n",thread_id);
 		else
-			error_handling("create connect handle thread failed");
+		{
+			printf("create connect handle thread failed");
+			continue;
+		}
 		clnt_socks[clnt_cnt] = clnt_sock;
 		clnt_cnt++;
 		pthread_mutex_unlock(&mutx);
@@ -109,7 +118,7 @@ void* connect_handle(void* arg)
 			}
 		}
 
-		int recv_msg_len;//jsonæ¶ˆæ¯çš„é•¿åº¦
+		int recv_msg_len;//jsonÏûÏ¢µÄ³¤¶È
 		memcpy(&recv_msg_len,recv_buf,sizeof(int));
 
 		recv(sock , recv_buf + sizeof(int), recv_msg_len ,0);
@@ -117,13 +126,13 @@ void* connect_handle(void* arg)
 		printf("recv %d bytes\n",recv_msg_len+sizeof(int));
 		printf("recv buf : %s\n",recv_buf);
 		printf("start broadcasting......\n");
-		broadcast_msg(recv_buf,recv_msg_len+sizeof(int));
 		memset(recv_buf+(recv_msg_len+sizeof(int)),0,1);
+		broadcast_msg(recv_buf,recv_msg_len+sizeof(int));
 	}
 
 	printf("recv error or socket disconnected!\n");
 
-	//æ¸…ç†sock
+	//ÇåÀísock
 	pthread_mutex_lock(&mutx);
 
 	int i;
@@ -132,6 +141,7 @@ void* connect_handle(void* arg)
 		if(clnt_socks[i] == sock)
 		{
 			printf("delete socket : %d\n", sock);
+			break;
 		}
 	}
 	clnt_cnt--;
@@ -147,8 +157,18 @@ void broadcast_msg(const char msg[],int msg_len)
 {
 	pthread_mutex_lock(&mutx);
 	int msg_front_len = *((int*)&msg[0]);
+
+/*
+	printf("boardcast sock list:\n");
+	for(int i = 0 ; i < clnt_cnt ; i++)
+	{
+		printf("%d\t",clnt_socks[i]);
+	}
+	printf("\n");
+*/
+
 	printf("broadcast msg first 4 bytes = %d\n",msg_front_len);
-	printf("message :%s\n",msg+4);
+	printf("message :%s",msg+4);
 	for(int i = 0 ; i < clnt_cnt ; i++)
 	{
 		if(write(clnt_socks[i],msg,msg_len)<0)

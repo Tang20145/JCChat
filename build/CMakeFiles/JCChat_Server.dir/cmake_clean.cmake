@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/JCChat_Server.dir/src/main.cpp.o"
+  "CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o"
   "JCChat_Server.pdb"
   "JCChat_Server"
 )
