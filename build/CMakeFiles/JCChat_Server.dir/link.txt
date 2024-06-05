@@ -1,1 +1,0 @@
-/usr/bin/c++  -pthread   CMakeFiles/JCChat_Server.dir/src/JCChat_Server_v01.cpp.o  -o JCChat_Server 
