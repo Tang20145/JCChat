@@ -1,0 +1,6 @@
+/thirdparty
+/new_src
+/backup
+/backup.sh
+/build
+!/build/JCChat_Server
